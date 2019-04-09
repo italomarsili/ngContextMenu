@@ -14,6 +14,12 @@
      * @type {Number}
      */
     var KEY_LEFT = 1;
+    
+    /**
+     * @constant KEY_RIGHT
+     * @type {Number}
+     */
+    var KEY_RIGHT = 2;   
 
     /**
      * @module ngContextMenu
@@ -80,7 +86,12 @@
                         // Bind to the `document` if we haven't already.
                         $document.addEventListener('click', function click(event) {
 
-                            if (event.which === KEY_LEFT) {
+                            if ((attributes.persistentMenu) && (event.which === KEY_RIGHT)) {
+                                contextMenu.cancelAll();
+                                scope.$apply();
+                            }
+                            
+                            if ((!attributes.persistentMenu) && (event.which === KEY_LEFT)) {
                                 contextMenu.cancelAll();
                                 scope.$apply();
                             }
